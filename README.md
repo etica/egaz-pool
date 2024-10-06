@@ -67,6 +67,7 @@ Dependencies:
 		sudo mkdir /var/lib/redis
 		sudo chown redis:redis /var/lib/redis
 		sudo chmod 770 /var/lib/redis
+  
 ### Setup the redis.service file
 	nano /etc/systemd/system/redis.service
     Paste this in there:
