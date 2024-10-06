@@ -59,9 +59,9 @@ Dependencies:
     sudo cp ~/redis-stable/redis.conf /etc/redis
     sudo nano /etc/redis/redis.conf
 	search the document for "supervised" remove the # at the front of the line and change auto to systemd
-        	supervised systemd
+        supervised systemd
 	continue searching the document for "dir " change it to /var/lib/redis
-    		dir /var/lib/redis
+    	dir /var/lib/redis
 	setup user, group, and directory
  		sudo adduser --system --group --no-create-home redis
 		sudo mkdir /var/lib/redis
