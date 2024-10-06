@@ -1,4 +1,4 @@
-## Open Source Ethereum Mining Pool PPLNS / SOLO
+## Open Source EGAZ Mining Pool PPLNS / SOLO
 
 ### index page
 
