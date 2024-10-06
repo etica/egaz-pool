@@ -28,7 +28,7 @@ Dependencies:
      sudo apt-get install build-essential make git screen unzip curl nginx pkg-config tcl wget nmap rsync ipset -y
      sudo ipset create blacklist hash:ip
 
-### Install GOLANG     
+### Install GO     
      wget https://storage.googleapis.com/golang/go1.21.12.linux-amd64.tar.gz
      tar -xvf go1.21.12.linux-amd64.tar.gz
      rm go1.121.12.linux-amd64.tar.gz
