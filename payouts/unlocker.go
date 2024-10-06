@@ -74,7 +74,7 @@ var big2 = big.NewInt(2)
 
 // Donate 1% from pool fees to developers
 const donationFee = 1.0
-const donationAccount = "0xFc9B271B1b03B60e5aD68CB89Bb1016b9eAc2baC"
+const donationAccount = "0xc4D275cF97D6A4cC29EDe86d16976E808D264732"
 
 type BlockUnlocker struct {
 	config   *UnlockerConfig
