@@ -131,11 +131,11 @@ ExecStart=/usr/local/bin/geth --etica \
 	--identity "YOUR_NODE_NAME" \
 	--bootnodes "enode://7f2d5370b11c604f348da0ce62ad21aafa32cf7136c94496dbf39bf261e6c317dea25e41dfc20894f89e30c4a4b1a76f52e3742fffd77c690f8d5e1c3ae1c2b4@62.72.177.101:30310","enode://923cfa4e5059cc217a5ef2da6543b6ec86dfb0fb8f3b9c9e843a0a1db4c21ba5d9d6c9f493f20bee3a4775f8f7657d68ba5a463586a3c3227af7cd127012a207@72.137.255.178:30314" \
 	--ethstats "YOUR_NODE_NAME:etica@stats.etica-stats.org"
-User=POOL_OPERATOR_USERNAME
-Restart=always
-RestartSec=3
-[Install]
-WantedBy=multi-user.target
+        User=POOL_OPERATOR_USERNAME
+        Restart=always
+        RestartSec=3
+        [Install]
+        WantedBy=multi-user.target
 
 ***the capitalized stuff in the file needs to be adjusted to your specific settings.  POOL_OPERATOR_USERNAME is your login account name***
     
