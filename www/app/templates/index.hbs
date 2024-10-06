@@ -5,15 +5,14 @@
         <div class="row">
           <h1 style="font-size: 24px">
             <div class="etc-green">
-              <strong><span class="logo-2">ETHW Pool</span></strong>
+              <strong><span class="logo-2">EGAZ Mining Pool</span></strong>
             </div>
           </h1>
         </div>
         <div class="row" style="padding:15px 5px;">
-          <strong>Min. payout threshold: {{config.PayoutThreshold}}</strong>, Payouts are continuos throughout the day.
-          <br />
-          <span class="label label-success">PPLNS</span>/<span class="label label-danger">SOLO</span> Stable and
-          profitable pool with regular payouts.
+          <strong>Min. payout threshold: {{config.PayoutThreshold}}</strong>, Payouts every 20 minutes.
+          <br/>
+          <span class="label label-success">PPLNS</span>/<span class="label label-danger">SOLO</span> Select your payout scheme on the miners account page.
         </div>
       </div>
       <div class="col-md-3 stats">
@@ -55,7 +54,7 @@
   <div class="stats">
     <h4>Your Stats &amp; Payment History</h4>
     <div class="input-group">
-      {{input value=cachedLogin class="form-control" placeholder="Your wallet address"}}
+      {{input value=cachedLogin class="form-control" placeholder="Your EGAZ/ETI wallet address.  They are the same."}}
       <span class="input-group-btn">
         <button class="btn btn-primary btn-etc" type="button" {{action 'lookup' cachedLogin}}>
           <span style="display: inline;"><i class="fa fa-search"></i> Search</span>
@@ -81,8 +80,8 @@
               <a href="#/help" class="ul-link">
                 <span class="ul ul-danger">stratum</span><br /><br />
               </a>
-              <code>{{config.StratumHost}}:{{config.StratumPort}}</code><br /> <br />
-              <code>Nicehash Europe password: #</code>
+              <code>stratum+tcp://{{config.StratumHost}}:{{config.StratumPort}}</code><br /> <br />
+              <code>Etica wallet available <a href="https://www.eticaprotocol.org/downloads">here.</a></code>
             </p>
           </div>
         </div>
