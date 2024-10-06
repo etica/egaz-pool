@@ -123,9 +123,11 @@ It is recommended to bind your DB address on 127.0.0.1 or on internal ip. Also, 
 	    --maxpeers 50 \
 	    --syncmode "full" \
 	    --datadir "~/.etica/" \
-	    --http --http.addr "127.0.0.1" \
+	    --http \
+            --http.addr "127.0.0.1" \
             --nat "extip:YOUR_PUBLIC_IP" \
-	    --http.port "8545" --port "30303" \
+	    --http.port "8545" \
+            --port "30303" \
     	    --allow-insecure-unlock \
 	    --rpc.allow-unprotected-txs  \
 	    --http.api eth,net,web3,personal,miner,txpool \
