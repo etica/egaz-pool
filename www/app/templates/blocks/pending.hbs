@@ -1,5 +1,5 @@
 {{#if model.candidates}}
-<h4>Recently Found Blocks</h4>
+<h4>Recent Blocks</h4>
 <div class="table-responsive">
   <table class="table table-condensed table-striped">
     <thead>
@@ -15,7 +15,7 @@
     <tbody>
       {{#each model.candidates as |block|}}
       <tr>
-        <td><a href="https://expedition.dev/block/{{block.height}}" rel="nofollow" target="_blank">{{format-number
+        <td><a href="https://eticascan.org/block/{{block.height}}" rel="nofollow" target="_blank">{{format-number
             block.height}}</a></td>
         <td>{{#link-to 'account' block.finder class='hash'}}{{block.finder}}{{/link-to}}</td>
         <td>{{format-date-locale block.timestamp}}</td>
