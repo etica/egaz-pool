@@ -108,12 +108,12 @@ It is recommended to bind your DB address on 127.0.0.1 or on internal ip. Also, 
    sudo nano /etc/systemd/system/geth.service
  Copy the following example into the file and alter as needed.
 
-[Unit]
-Description=geth
-After=network-online.target
+        [Unit]
+        description=geth
+        After=network-online.target
 
-[Service]
-ExecStart=/usr/local/bin/geth --etica \
+        [Service]
+        ExecStart=/usr/local/bin/geth --etica \
 	--miner.etherbase "0x183071e172aA5995738F79a762f09FDd83b7D75B" \
 	--unlock "0x183071e172aA5995738F79a762f09FDd83b7D75B" \
 	--password "PATH_TO_PASSWORD.TXT_FILE" \
