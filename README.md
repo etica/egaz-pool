@@ -44,6 +44,7 @@ Dependencies:
      go version     <--this should be replied with your go version
     
 ### Install Node.js
+    > NOTE: at this point keep your nodejs version <= 19.x.
     curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
     sudo apt-get install nodejs -y
      
@@ -89,100 +90,80 @@ Dependencies:
  	sudo systemctl start redis.service
 	sudo systemctl status redis.service, or for more detail try
  	sudo journalctl -f -u redis.service
-	
    
 It is recommended to bind your DB address on 127.0.0.1 or on internal ip. Also, please set up the password for advanced security!!!
 
-### Install nginx
 
-     sudo apt-get install nginx
-
-Search on Google for nginx-setting
-
-### Install NODE
-
-**See source**: [https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions)
-
-**curl to setup the node.js repository in your sources.**
-
-`curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -`
-
-**Now install node.js.** *Note the command name changes in ubuntu, `nodejs` instead of `node`. This is to avoid a name conflict with a package called `node` in ubuntu.
-`sudo apt-get install -y nodejs`
-
-## Optional (
-**Install bower**. __*NOTE:*__ Used by https://github.com/adiwg/mdEditor
-
-### Warning
-```
-npm WARN deprecated bower@1.8.2: ...psst! Your project can stop working at any moment because its dependencies can change. Prevent this by migrating to Yarn: https://bower.io/blog/2017/how-to-migrate-away-from-bower/
-/usr/bin/bower -> /usr/lib/node_modules/bower/bin/bower
-```
-
-*YOU HAVE BEEN WARNED*
 
 `sudo npm install -g bower`
     
-### Run core-geth   
+### Download, Install and Run core-geth   
+   git clone https://github.com/etica/core-geth.git
+   cd core-geth
+   make geth
+   sudo mv build/bin/geth /usr/local/bin/
 
-**I highly recommend to use Ubuntu 20.04 LTS.**
- 1. First install:  sudo apt-get install build-essential
- 2. install   sudo apt-get install make
- 3. install   sudo apt-get install git
- 4. install  [core-geth](https://github.com/etclabscore/core-geth/releases).
+   now you can generate an account and UTC keystore file if you need to
 
- 
- Run console 
- 
- New Wallet
- ```
- ./geth account new --datadir /home/pool/classic/.ethereum/
-```
-If you use Ubuntu, it is easier to control services by using serviced.
+   geth --datadir ~/.etica account new
 
-     sudo nano /etc/systemd/system/geth.service
-    
- Copy the following example
+   make sure you do not lose the generated UTC keystore file (its in ~/.geth/keystore) and dont forget your password
 
-```
+   sudo nano /etc/systemd/system/geth.service
+ Copy the following example into the file and alter as needed.
 
 [Unit]
 Description=geth
 After=network-online.target
 
 [Service]
-ExecStart=/home/pool/core-geth/build/bin/geth --miner.threads=1 --datadir /home/pool/classic/.ethereum/ --syncmode=snap --http --http.api eth,net,web3,txpool,miner --miner.etherbase=0x95f296f317E8E3AFb3DEf009173E77cCe00B5aeC --mine --cache=8000 --maxpeers 100 --password="/home/pool/.pw" --allow-insecure-unlock --http.port "8545" --nat "any" --unlock 0x95f296f317E8E3AFb3DEf009173E77cCe00B5aeC --miner.extradata ys --classic --snapshot=false --port 30305
-
-User=pool
+ExecStart=/usr/local/bin/geth --etica \
+	--miner.etherbase "0x183071e172aA5995738F79a762f09FDd83b7D75B" \
+	--unlock "0x183071e172aA5995738F79a762f09FDd83b7D75B" \
+	--password "PATH_TO_PASSWORD.TXT_FILE" \
+	--mine --cache 2048 \
+	--maxpendpeers 50 \
+	--maxpeers 50 \
+	--syncmode "full" \
+	--datadir "~/.etica/" \
+	--http --http.addr "127.0.0.1" \
+        --nat "extip:YOUR_PUBLIC_IP" \
+	--http.port "8545" --port "30303" \
+	--allow-insecure-unlock \
+	--rpc.allow-unprotected-txs  \
+	--http.api eth,net,web3,personal,miner,txpool \
+	--identity "YOUR_NODE_NAME" \
+	--bootnodes "enode://7f2d5370b11c604f348da0ce62ad21aafa32cf7136c94496dbf39bf261e6c317dea25e41dfc20894f89e30c4a4b1a76f52e3742fffd77c690f8d5e1c3ae1c2b4@62.72.177.101:30310","enode://923cfa4e5059cc217a5ef2da6543b6ec86dfb0fb8f3b9c9e843a0a1db4c21ba5d9d6c9f493f20bee3a4775f8f7657d68ba5a463586a3c3227af7cd127012a207@72.137.255.178:30314" \
+	--ethstats "YOUR_NODE_NAME:etica@stats.etica-stats.org"
+User=POOL_OPERATOR_USERNAME
 
 Restart=always
 RestartSec=3
-
 [Install]
 WantedBy=multi-user.target
 
-```
+***the capitalized stuff in the file needs to be adjusted to your specific settings.  POOL_OPERATOR_USERNAME is your login account name***
     
 Then run core-geth by the following commands
 
-    $ sudo systemctl enable geth
-    $ sudo systemctl start geth
+    $ sudo systemctl enable geth.service
+    $ sudo systemctl start geth.service
 
 If you want to debug the node command
 
-    $ sudo systemctl status geth
+    $ sudo journalctl -f -u geth.service
     
-### Open Firewall
-
-Firewall should be opened to operate this service. Whether Ubuntu firewall is basically opened or not, the firewall should be opened based on your situation.
-You can open firewall by opening 80,443,8008,30305.
-
+### Firewall
+   at minimum, the following ports must be open/forwarded for the pool (adjust as per your setup)
+   80/443  http and/or https
+   30303   geth communication
+   8888    http proxy
+   8008    stratum port
 
 Clone & compile:
     
-    git clone https://github.com/yuriy0803/open-etc-pool-friends.git
-    cd open-etc-pool-friends
-   
+    git clone https://github.com/etica/egaz-pool.git
+    cd egaz-pool
     go build
 
 
@@ -192,38 +173,27 @@ Clone & compile:
 
      nano ~/open-etc-pool-friends/www/config/environment.js
 
-Make some modifications in these settings.
+Read thru the file and change as needed.
 
     ApiUrl: '//your-pool-domain/',
     HttpHost: 'http://your-pool-domain',
     StratumHost: 'your-pool-domain',
     PoolFee: '1%',
+    Unit: 'EGAZ',
+    PayoutThreshold: '0.5 EGAZ',
+    
 
-The frontend is a single-page Ember.js application that polls the pool API to render miner stats.
-
-### Running Pool
-
-    ./open-etc-pool-friends api.json
 
 
 ### Building Frontend
-
-Install nodejs. I suggest using LTS version >= 4.x from https://github.com/nodesource/distributions or from your Linux distribution or simply install nodejs on Ubuntu Xenial 16.04.
-
-> NOTE: at this point keep your nodejs version <= 19.x.
-
-The frontend is a single-page Ember.js application that polls the pool API to render miner stats.
 
     cd www
 
 Change <code>ApiUrl: '//example.net/'</code> in <code>www/config/environment.js</code> to match your domain name. Also don't forget to adjust other options.
 
 Install deps
-
      sudo npm install -g ember-cli@2.18
      sudo npm install -g bower
-     sudo chown -R $USER:$GROUP ~/.npm
-     sudo chown -R $USER:$GROUP ~/.config
      npm install
      bower install
      ember install ember-truth-helpers
@@ -231,7 +201,7 @@ Install deps
 
 Build.
      
-     chmod 755 build.sh
+     chmod +x build.sh
     ./build.sh
     
     
