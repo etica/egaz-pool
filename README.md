@@ -70,7 +70,7 @@ Dependencies:
 		sudo chmod 770 /var/lib/redis
   
 ### Setup the redis.service file
-	nano /etc/systemd/system/redis.service
+	sudo nano /etc/systemd/system/redis.service
     Paste this in there:
 	[Unit]
 	Description=Redis In-Memory Data Store
