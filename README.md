@@ -105,8 +105,9 @@ It is recommended to bind your DB address on 127.0.0.1 or on internal ip. Also, 
 
    make sure you do not lose the generated UTC keystore file (its in ~/.geth/keystore) and dont forget your password
 
+### Create the geth.service file   
    sudo nano /etc/systemd/system/geth.service
- Copy the following example into the file and alter as needed.
+   Copy the following example into the file and alter as needed.
 
         [Unit]
         description=geth
