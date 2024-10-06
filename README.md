@@ -94,14 +94,14 @@ Dependencies:
 It is recommended to bind your DB address on 127.0.0.1 or on internal ip. Also, please set up the password for advanced security!!!
     
 ### Download, Install and Run core-geth   
-   git clone https://github.com/etica/core-geth.git
-   cd core-geth
-   make geth
-   sudo mv build/bin/geth /usr/local/bin/
+        git clone https://github.com/etica/core-geth.git
+        cd core-geth
+        make geth
+        sudo mv build/bin/geth /usr/local/bin/
 
    now you can generate an account and UTC keystore file if you need to
 
-   geth --datadir ~/.etica account new
+        geth --datadir ~/.etica account new
 
    make sure you do not lose the generated UTC keystore file (its in ~/.geth/keystore) and dont forget your password
 
