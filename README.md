@@ -4,32 +4,13 @@
 
 ![index/miners page](/screenshots/01.png?raw=true "index/miners page")
 
-### Donations
-
-* Donate 1% from pool fees to developers (Attention becomes automatic)
-
-
-* open-etc-pool-friends wallet ETC: 0xd92fa5a9732a0aec36dc8d5a6a1305dc2d3e09e6
-
-### Features
-
-### Email: office.poolnode@gmail.com
-
-### [YouTube](https://www.youtube.com/channel/UCeSEGwWB8LWtu7BM8OpH6yA).
-
-### [hey come check out Discord with me](https://discord.gg/zdnuXm4uby). 
-
-### [hey come check out Telegram with me](https://t.me/openetcpoolfriends).
-
-**This pool is being further developed to provide an easy to use pool for Ethereum Classic miners. This software is functional however an optimised release of the pool is expected soon. Testing and bug submissions are welcome!**
-
 * Support for HTTP and Stratum mining
 * Detailed block stats with luck percentage and full reward
 * Failover geth instances: geth high availability built in
 * Separate stats for workers: can highlight timed-out workers so miners can perform maintenance of rigs
 * JSON-API for stats
 * New vue based UI
-* Supports Ethereum Classic, Mordor, Ethereum, Ropsten, ubiq
+* Configured for Etica (EGAZ), but the pool build works with ethash/etchash coins with some modifications
 
 ### Building on Linux
 
@@ -41,22 +22,74 @@ Dependencies:
   * nodejs >= 4 LTS
   * nginx
 
-### Install go lang
+### Install dependencies and tools
 
      sudo apt-get update && apt-get upgrade
-     sudo apt-get install golang
-     sudo apt-get install rsync
-     sudo apt-get install git
-     sudo apt-get install ipset
+     sudo apt-get install build-essential make git screen unzip curl nginx pkg-config tcl wget nmap rsync ipset -y
      sudo ipset create blacklist hash:ip
+
+### Install GOLANG     
+     wget https://storage.googleapis.com/golang/go1.21.12.linux-amd64.tar.gz
+     tar -xvf go1.21.12.linux-amd64.tar.gz
+     rm go1.121.12.linux-amd64.tar.gz
+     sudo mv go /usr/local
+     
+### Add GO to the path - edit the file and add the two exports to the end of it, then save and exit.
+     nano ~/.profile
+     
+     export GOROOT=/usr/local/go
+     export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+
+     source ~/.profile
+     go version     <--this should be replied with your go version
     
-### Install npm
-    sudo apt-get install npm
+### Install Node.js
+    curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+    sudo apt-get install nodejs -y
+     
 
 ### Install redis-server
+    wget http://download.redis.io/redis-stable.tar.gz
+    tar xvzf redis-stable.tar.gz
+    cd redis-stable
+    make
+    make test
+    sudo make install
+    sudo mkdir /etc/redis
+    sudo cp ~/redis-stable/redis.conf /etc/redis
+    sudo nano /etc/redis/redis.conf
+	search the document for "supervised" remove the # at the front of the line and change auto to systemd
+        	supervised systemd
+	continue searching the document for "dir " change it to /var/lib/redis
+    		dir /var/lib/redis
+	setup user, group, and directory
+ 		sudo adduser --system --group --no-create-home redis
+		sudo mkdir /var/lib/redis
+		sudo chown redis:redis /var/lib/redis
+		sudo chmod 770 /var/lib/redis
+### Setup the redis.service file
+	nano /etc/systemd/system/redis.service
+    Paste this in there:
+	[Unit]
+	Description=Redis In-Memory Data Store
+	After=network.target
 
-     sudo apt-get install redis-server
+	[Service]
+	User=redis
+	Group=redis
+	ExecStart=/usr/local/bin/redis-server /etc/redis/redis.conf
+	ExecStop=/usr/local/bin/redis-cli shutdown
+	Restart=always
 
+	[Install]
+	WantedBy=multi-user.target
+   save and exit.  Then start the daemon like this:
+	sudo systemctl enable redis.service
+ 	sudo systemctl start redis.service
+	sudo systemctl status redis.service, or for more detail try
+ 	sudo journalctl -f -u redis.service
+	
+   
 It is recommended to bind your DB address on 127.0.0.1 or on internal ip. Also, please set up the password for advanced security!!!
 
 ### Install nginx
