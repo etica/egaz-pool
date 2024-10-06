@@ -31,7 +31,7 @@ Dependencies:
 ### Install GO     
      wget https://storage.googleapis.com/golang/go1.21.12.linux-amd64.tar.gz
      tar -xvf go1.21.12.linux-amd64.tar.gz
-     rm go1.121.12.linux-amd64.tar.gz
+     rm go1.21.12.linux-amd64.tar.gz
      sudo mv go /usr/local
      
 ### Add GO to the path - edit the file and add the two exports to the end of it, then save and exit.
