@@ -1,6 +1,6 @@
 <div class="jumbotron-brand">
   <div class="container">
-    <p class="lead">Pool always pays tx fees from it's own pocket for now.</p>
+    <p class="lead">TX fees supplied by the pool wallet.</p>
     <strong>Total payments sent:</strong> <span class="label label-info">{{model.paymentsTotal}}</span>
   </div>
 </div>
@@ -23,12 +23,12 @@
           <td>{{format-date-locale tx.timestamp}}</td>
           <td>{{format-number tx.formatAmount}}</td>
           <td>
-            <a href="https://expedition.dev/address/{{tx.address}}" class="hash" rel="nofollow" target="_blank">{{wallet
+            <a href="https://eticascan.org/address/{{tx.address}}" class="hash" rel="nofollow" target="_blank">{{wallet
               tx.address}}</a>
           </td>
           <td>
-            <a href="https://expedition.dev/tx/{{tx.tx}}" class="hash" rel="nofollow" target="_blank">{{format-tx
-              tx.tx}}</a>
+y
+            tx.tx}}</a>
           </td>
         </tr>
         {{/each}}
