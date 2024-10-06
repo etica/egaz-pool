@@ -92,10 +92,6 @@ Dependencies:
  	sudo journalctl -f -u redis.service
    
 It is recommended to bind your DB address on 127.0.0.1 or on internal ip. Also, please set up the password for advanced security!!!
-
-
-
-`sudo npm install -g bower`
     
 ### Download, Install and Run core-geth   
    git clone https://github.com/etica/core-geth.git
