@@ -103,7 +103,7 @@ It is recommended to bind your DB address on 127.0.0.1 or on internal ip. Also, 
 
         geth --datadir ~/.etica account new
 
-   make sure you do not lose the generated UTC keystore file (its in ~/.geth/keystore) and dont forget your password
+   make sure you do not lose the generated UTC keystore file (its in ~/.etica/keystore) and dont forget your password
 
 ### Create the geth.service file   
    sudo nano /etc/systemd/system/geth.service
