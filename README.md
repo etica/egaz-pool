@@ -167,7 +167,19 @@ Clone & compile:
 
 
 ## Install Frontend
+     sudo npm install -g ember-cli@2.18
+     sudo npm install -g bower
+     sudo chown -R $USER:$GROUP ~/.npm
+     sudo chown -R $USER:$GROUP ~/.config
+     npm install
+     bower install
+     ember install ember-truth-helpers
+     npm install jdenticon@2.1.0
 
+Build from www/
+     
+     chmod 755 build.sh
+    ./build.sh
 ### Modify configuration file
 
      nano ~/open-etc-pool-friends/www/config/environment.js
