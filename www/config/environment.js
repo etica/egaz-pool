@@ -15,27 +15,27 @@ module.exports = function (environment) {
 
     APP: {
       // API host and port
-      ApiUrl: '//192.168.178.41/',
+      ApiUrl: '//YOUR_IP_OR_HOST/',
 
       // HTTP mining endpoint
-      HttpHost: 'http://192.168.178.41',
+      HttpHost: 'http://YOUR_IP_OR_HOST',
       HttpPort: 8888,
 
       // Stratum mining endpoint
-      StratumHost: '192.168.178.41',
+      StratumHost: 'YOUR_IP_OR_HOST',
       StratumPort: 8008,
 
-      // The ETC network
-      Unit: 'ETC',
+      // The EGAZ network
+      Unit: 'EGAZ',
       Mining: 'SOLO',
 
       // Fee and payout details
       PoolFee: '1.0%',
-      PayoutThreshold: '0.5 ETC',
-      BlockReward: 2.56,
+      PayoutThreshold: '0.5 EGAZ',
+      BlockReward: 2.0,
 
       // For network hashrate (change for your favourite fork)
-      BlockTime: 14.4,
+      BlockTime: 13.4,
       highcharts: {
         main: {
           enabled: true,
