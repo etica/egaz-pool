@@ -24,7 +24,7 @@ Dependencies:
 
 ### Install dependencies and tools
 
-     sudo apt-get update && apt-get upgrade
+     sudo apt-get update && sudo apt-get upgrade
      sudo apt-get install build-essential make git screen unzip curl nginx pkg-config tcl wget nmap rsync ipset -y
      sudo ipset create blacklist hash:ip
 
